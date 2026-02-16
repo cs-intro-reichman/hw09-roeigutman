@@ -81,15 +81,16 @@ public class List {
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-       
-       Node currnet = first;
-       if (currnet.cp.chr ==  chr) {
-        currnet.cp.count++;
-       } 
-
-       addFirst(chr);
-
+    Node current = first;
+    while (current != null) {
+        if (current.cp.chr == chr) {
+            current.cp.count++;
+            return;
+        }
+        current = current.next;
     }
+    addFirst(chr);
+  }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
