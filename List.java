@@ -51,7 +51,7 @@ public class List {
         String str = "(";
          
         Node currnet = first;
-        while (currnet.next != null) {
+        while (currnet != null) {
            str = str + currnet.cp + " ";
            currnet = currnet.next; 
         }
@@ -122,7 +122,7 @@ public class List {
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
        
-       if (index < 0 || index > size) {
+       if (index < 0 || index >= size) {
         throw new IndexOutOfBoundsException();
        }
 
