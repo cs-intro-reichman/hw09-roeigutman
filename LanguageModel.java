@@ -109,26 +109,22 @@ public class LanguageModel {
 	 * @param numberOfLetters - the size of text to generate
 	 * @return the generated text
 	 */
-	public String generate(String initialText, int textLength) {
-		 if (initialText.length() < windowLength) {
-            return initialText;
+	public String generate(String initialText, int textLength, int seed) {
+    if (initialText.length() < windowLength) {
+        return initialText;
+    }
+    String res = initialText;
+    randomGenerator = new Random(seed);
+    while (res.length() < textLength) {
+        String window = res.substring(res.length() - windowLength);
+        List probs = CharDataMap.get(window);
+        if (probs == null) {
+            break;
         }
-
-        String res = initialText;
-
-        while (res.length() < textLength) {
-            String window = res.substring(res.length() - windowLength);
-            List probs = CharDataMap.get(window);
-
-            if (probs == null) {
-                break;
-            }
-
-            res = res + getRandomChar(probs);
-        }
-
-        return "";
-	}
+        res = res + getRandomChar(probs);
+    }
+    return res;
+    }
 
     /** Returns a string representing the map of this language model. */
 	public String toString() {
